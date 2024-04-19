@@ -2,9 +2,8 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.PrintWriter
 import java.net.ServerSocket
-import java.net.Socket
 
-class Server(val port: Int = 8090) {
+class Server(port: Int = 8090) {
     private val serverSocket = ServerSocket(port)
 
     fun start() {
@@ -17,7 +16,6 @@ class Server(val port: Int = 8090) {
             val reader = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
             val writer = PrintWriter(clientSocket.getOutputStream(), true)
 
-            writer.println(1)
             try {
                 val username = reader.readLine()
                 val password = reader.readLine()
@@ -37,12 +35,4 @@ class Server(val port: Int = 8090) {
             }
         }
     }
-
-    private fun checkCredentials(username: String, password: String): Boolean {
-        val db = DataBase()
-        val userValue = db.checkUser(username, password)
-        println("Значение для пользователя: $userValue")
-        return userValue != null  // Возвращает true, если значение поля value получено, иначе false
-    }
-
 }

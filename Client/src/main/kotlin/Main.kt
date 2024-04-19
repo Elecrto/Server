@@ -1,4 +1,3 @@
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -19,12 +18,12 @@ import java.io.InputStreamReader
 
 fun main() = application {
     Window(onCloseRequest = ::exitApplication, title = "Login Form") {
-        LoginForm()
+        loginForm()
     }
 }
 
 @Composable
-fun LoginForm() {
+fun loginForm() {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var serverResponse by remember { mutableStateOf<String?>(null) }
@@ -62,10 +61,10 @@ fun LoginForm() {
 
                 Button(onClick = {
                     serverResponse = null
-                    loginSuccessful = false  // Сбросить флаг перед новой попыткой
+                    loginSuccessful = false
                     sendLoginData(username, password) { response ->
                         serverResponse = response
-                        loginSuccessful = response != null  // Установить флаг на основе ответа сервера
+                        loginSuccessful = true
                     }
                 }) {
                     Text("Login")
@@ -73,12 +72,6 @@ fun LoginForm() {
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun PreviewLoginForm() {
-    LoginForm()
 }
 
 
